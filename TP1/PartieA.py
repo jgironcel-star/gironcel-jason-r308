@@ -1,8 +1,7 @@
 etudiants = {}  #Création d'un dictionnaire vide
 
-def ajouter_etudiant(d, nom ,note): #Création de la fonction ajouter étudiant
+def ajouter_etudiant(d, nom ,note):
     d[nom] = float(note) #Ajout de la clé nom et de la valeur note au dictionnaire d.
-
 
 def moyenne_classe(d):
     somme =0  #Initailisation de la variable somme à 0
@@ -28,20 +27,15 @@ def sauvegarder_fichier(d , nom_fichier):
     with open(nom_fichier, "w", encoding="utf-8") as f: #ligne permettant d'ouvrir le fichier passé en paramètre et d'écrire dans ce fichier ("w" permet d'écrire dans un fichier)
         for nom , note in d.items(): #parcourt les noms et les notes du dictionnaire
             f.write(f"{nom}:{note}\n") # écrit les noms et note dans le fichier
-
 #Gestion des erreurs:
 def charger_fichier(nom_fichier):
     d = {} # Dictionnaire qui contiendra les données chargées
-    
     try:
         with open(nom_fichier, "r", encoding="utf-8") as f:  # EEssai d'ouvrir le fichier en mode lecture ("r") avec l'encodage UTF-8
             for ligne in f:
                 ligne = ligne.strip()  # Retire les espaces inutiles et les retours à la ligne (\n)
-                
                 if ":" in ligne:#Vérification que la ligne contient bien le séparateur ":"
-                    
                     nom, note_str = ligne.split(":", 1) # Découpe la ligne au premier ":" sépare le nom et la note
-                    
                     try:
                         # Essai de convertir le texte de la note en float
                         d[nom] = float(note_str)
@@ -49,15 +43,12 @@ def charger_fichier(nom_fichier):
                         # Si la conversion échoue (ex: la note est "quinze" au lieu de 15),
                         # cette erreur est capturée : on affiche un avertissement et le programme continue sans planter
                         print(f"Ligne ignorée (note invalide) : {ligne}")
-
     except FileNotFoundError:
         # Si le fichier n'existe pas lors du open(), cette erreur est capturée :
         # on affiche un message clair au lieu de faire planter le script avec un crash Python
         print("Fichier non trouvé. Un dictionnaire vide est renvoyé.")
-    
     # On renvoie le dictionnaire (qu'il soit plein, partiellement rempli ou vide)
     return d
-
 #Jeu d'essai:
 etudiants = {}
 #Appel des différentes fonctions pour tester le code .
